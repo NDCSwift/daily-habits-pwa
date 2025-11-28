@@ -1,36 +1,33 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Daily Habits</title>
 
-  <!-- PWA manifest & theme -->
+  <!-- PWA manifest -->
   <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#0f172a" />
+  <meta name="theme-color" content="#4f46e5" />
 
-  
+  <!-- Icons -->
   <link rel="apple-touch-icon" href="icon-192.png" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
 
-  
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9275564079466116"
-    crossorigin="anonymous"></script>
+
 </head>
+
 <body>
   <header class="app-header">
     <h1>Daily Habits</h1>
     <p>Track simple habits, anywhere, even offline.</p>
+
+    <!-- Dark mode toggle -->
+    <button id="theme-toggle" class="theme-toggle">🌙</button>
   </header>
 
-
- <!--
+   <!--
 <section class="ad-wrapper">
   <ins class="adsbygoogle"
        style="display:block"
@@ -45,57 +42,43 @@
 -->
 
   <main class="app-main">
-    <section class="card">
+    <section class="card fade-in">
       <h2>Add a habit</h2>
       <form id="habit-form">
         <label for="habit-name">Habit name</label>
-        <input
-          id="habit-name"
-          name="habit-name"
-          type="text"
-          placeholder="e.g. Drink water"
-          required
-        />
+        <input id="habit-name" type="text" placeholder="e.g. Drink water" required />
         <button type="submit">Add Habit</button>
       </form>
     </section>
 
-    <section class="card">
+    <section class="card fade-in">
       <h2>Your habits</h2>
       <p id="empty-state">No habits yet. Add your first one above!</p>
       <ul id="habit-list" class="habit-list"></ul>
     </section>
   </main>
 
-<footer class="app-footer">
-  <p>
+  <footer class="app-footer">
     <button id="open-install-hint" class="install-footer-btn">
       Install this app
     </button>
-    from your browser menu to use it like a native app.
-  </p>
-</footer>
+  </footer>
+
+  <!-- Install Modal -->
+  <div id="install-hint" class="install-hint hidden">
+    <div class="hint-card">
+      <h3>Install Daily Habits</h3>
+      <p id="hint-text" class="hint-text"></p>
+      <button id="hint-dismiss">Got it</button>
+    </div>
+  </div>
 
   <script src="app.js"></script>
- <div id="install-hint" class="install-hint hidden">
-  <div class="hint-card">
-    <h3>Install Daily Habits</h3>
-    <p class="hint-text" id="hint-text"></p>
-    <button id="hint-dismiss">Got it</button>
-  </div>
-</div>
   <script>
-    // Register service worker for PWA
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        // Relative path works at /daily-habits-pwa/
-        navigator.serviceWorker
-          .register("./service-worker.js")
-          .catch((err) => console.error("SW registration failed", err));
-      });
+      navigator.serviceWorker.register("./service-worker.js")
+        .catch(err => console.error("SW registration failed", err));
     }
   </script>
-
-
 </body>
 </html>
