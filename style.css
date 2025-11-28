@@ -64,6 +64,7 @@ body {
   padding: 1.25rem 1.1rem 1.1rem;
   box-shadow: var(--shadow-soft);
   border: 1px solid var(--border-subtle);
+  -webkit-backdrop-filter: blur(24px);
   backdrop-filter: blur(24px);
   margin-bottom: 1.1rem;
 }
