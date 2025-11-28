@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>Daily Habits PWA</title>
+
+  <!-- PWA: Manifest & theme -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- Icons (you can swap these for real PNGs later) -->
+  <link rel="apple-touch-icon" href="icon-192.png" />
+
+  <!-- Basic styling -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Google AdSense (replace client id with yours) -->
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+    crossorigin="anonymous"
+  ></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Daily Habits</h1>
+    <p>Track simple habits, anywhere, even offline.</p>
+  </header>
+
+  <!-- AdSense banner (replace data-ad-slot with yours) -->
+  <section class="ad-wrapper">
+    <ins
+      class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+      data-ad-slot="1234567890"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    ></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </section>
+
+  <main class="app-main">
+    <section class="card">
+      <h2>Add a habit</h2>
+      <form id="habit-form">
+        <label for="habit-name">Habit name</label>
+        <input
+          id="habit-name"
+          name="habit-name"
+          type="text"
+          placeholder="e.g. Drink water"
+          required
+        />
+        <button type="submit">Add Habit</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Your habits</h2>
+      <p id="empty-state">No habits yet. Add your first one above!</p>
+      <ul id="habit-list" class="habit-list"></ul>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Install this app from your browser menu to use it like a native app.</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Register service worker for PWA
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        // For username.github.io
+        navigator.serviceWorker.register("/service-worker.js").catch((err) =>
+          console.error("SW registration failed", err)
+        );
+
+        /*
+         * If you are using a project page like:
+         *   https://username.github.io/my-pwa/
+         * change the line above to:
+         * navigator.serviceWorker.register("/my-pwa/service-worker.js")
+         */
+      });
+    }
+  </script>
+</body>
+</html>
