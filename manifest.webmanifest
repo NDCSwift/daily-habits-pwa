@@ -1,8 +1,8 @@
 {
   "name": "Daily Habits",
   "short_name": "Habits",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/daily-habits-pwa/",
+  "scope": "/daily-habits-pwa/",
   "display": "standalone",
   "background_color": "#020617",
   "theme_color": "#0f172a",

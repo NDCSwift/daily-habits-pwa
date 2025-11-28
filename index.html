@@ -6,23 +6,22 @@
     name="viewport"
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   />
-  <title>Daily Habits PWA</title>
+  <title>Daily Habits</title>
 
-  <!-- PWA: Manifest & theme -->
+  <!-- PWA manifest & theme -->
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="theme-color" content="#0f172a" />
 
-
+  
   <link rel="apple-touch-icon" href="icon-192.png" />
 
-  <!-- Basic styling -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
 
   
- <script async
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9275564079466116"
-  crossorigin="anonymous"></script>
-
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9275564079466116"
+    crossorigin="anonymous"></script>
 </head>
 <body>
   <header class="app-header">
@@ -30,7 +29,7 @@
     <p>Track simple habits, anywhere, even offline.</p>
   </header>
 
-  <!-- AdSense banner (replace data-ad-slot with yours) -->
+
   <section class="ad-wrapper">
     <ins
       class="adsbygoogle"
@@ -70,18 +69,16 @@
 
   <footer class="app-footer">
     <p>Install this app from your browser menu to use it like a native app.</p>
-    <p>
-      <a href="https://github.com/NDCSwift/daily-habits-pwa" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-    </p>
   </footer>
 
   <script src="app.js"></script>
   <script>
-    // Register service worker for PWA (use relative path so project pages work)
+    // Register service worker for PWA
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
+        // Relative path works at /daily-habits-pwa/
         navigator.serviceWorker
-          .register("service-worker.js")
+          .register("./service-worker.js")
           .catch((err) => console.error("SW registration failed", err));
       });
     }
