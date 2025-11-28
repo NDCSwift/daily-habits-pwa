@@ -136,61 +136,57 @@ habitForm.addEventListener("submit", (event) => {
   habitNameInput.focus();
 });
 
+// -------------------------------
+// INSTALL MODAL FIXED + REWRITTEN
+// -------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   loadHabits();
   renderHabits();
-});
 
-(function () {
   const hint = document.getElementById("install-hint");
   const hintText = document.getElementById("hint-text");
   const dismissBtn = document.getElementById("hint-dismiss");
+  const footerBtn = document.getElementById("open-install-hint");
 
-  // Only show once
-  if (localStorage.getItem("install-hint-dismissed")) return;
+  if (!hint || !hintText || !dismissBtn) {
+    console.warn("Install hint elements missing in DOM.");
+    return;
+  }
 
   const ua = navigator.userAgent.toLowerCase();
   const isIOS = /iphone|ipad|ipod/.test(ua);
-  const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
+  const isStandalone =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone;
 
-  if (isStandalone) return; // Already installed
+  function getInstallText() {
+    if (isIOS) {
+      return "On iPhone, tap the Share button and choose 'Add to Home Screen'.";
+    }
+    if (navigator.userAgent.includes("Chrome")) {
+      return "In Chrome, open the browser menu and tap 'Install app'.";
+    }
+    return "Look for the Install button in your browser’s address bar.";
+  }
 
-  // Show correct instruction based on platform
-  if (isIOS) {
-    hintText.textContent = "On iPhone, tap the Share button and choose 'Add to Home Screen'.";
-    hint.classList.remove("hidden");
-  } else if (navigator.userAgent.includes("Chrome")) {
-    hintText.textContent = "In Chrome, open the menu and tap 'Install app'.";
-    hint.classList.remove("hidden");
-  } else {
-    hintText.textContent = "Look for the Install button in your browser’s address bar.";
+  // Auto-show logic (only once)
+  if (!localStorage.getItem("install-hint-dismissed") && !isStandalone) {
+    hintText.textContent = getInstallText();
     hint.classList.remove("hidden");
   }
 
+  // Manual open via footer link
+  if (footerBtn) {
+    footerBtn.addEventListener("click", () => {
+      localStorage.removeItem("install-hint-dismissed");
+      hintText.textContent = getInstallText();
+      hint.classList.remove("hidden");
+    });
+  }
+
+  // Dismiss logic
   dismissBtn.addEventListener("click", () => {
     hint.classList.add("hidden");
     localStorage.setItem("install-hint-dismissed", "1");
   });
-})();
-// Footer button to manually open the install hint
-document.getElementById("open-install-hint")?.addEventListener("click", () => {
-  localStorage.removeItem("install-hint-dismissed"); // ensure it always opens
-  const hint = document.getElementById("install-hint");
-  const hintText = document.getElementById("hint-text");
-
-  const ua = navigator.userAgent.toLowerCase();
-  const isIOS = /iphone|ipad|ipod/.test(ua);
-
-  if (isIOS) {
-    hintText.textContent =
-      "On iPhone, tap the Share button and choose 'Add to Home Screen'.";
-  } else if (navigator.userAgent.includes("Chrome")) {
-    hintText.textContent =
-      "In Chrome, open the browser menu and tap 'Install app'.";
-  } else {
-    hintText.textContent =
-      "Look for the install button in your browser’s address bar.";
-  }
-
-  hint.classList.remove("hidden");
 });
