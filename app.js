@@ -172,3 +172,25 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("install-hint-dismissed", "1");
   });
 })();
+// Footer button to manually open the install hint
+document.getElementById("open-install-hint")?.addEventListener("click", () => {
+  localStorage.removeItem("install-hint-dismissed"); // ensure it always opens
+  const hint = document.getElementById("install-hint");
+  const hintText = document.getElementById("hint-text");
+
+  const ua = navigator.userAgent.toLowerCase();
+  const isIOS = /iphone|ipad|ipod/.test(ua);
+
+  if (isIOS) {
+    hintText.textContent =
+      "On iPhone, tap the Share button and choose 'Add to Home Screen'.";
+  } else if (navigator.userAgent.includes("Chrome")) {
+    hintText.textContent =
+      "In Chrome, open the browser menu and tap 'Install app'.";
+  } else {
+    hintText.textContent =
+      "Look for the install button in your browser’s address bar.";
+  }
+
+  hint.classList.remove("hidden");
+});
