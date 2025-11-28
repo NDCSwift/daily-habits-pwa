@@ -144,6 +144,48 @@ button:active {
   border: 1px solid rgba(148, 163, 184, 0.3);
 }
 
+.install-hint {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 280px;
+  z-index: 9999;
+}
+
+.hint-card {
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+  border: 1px solid rgba(148,163,184,0.2);
+  backdrop-filter: blur(12px);
+}
+
+.hint-card h3 {
+  margin: 0 0 .5rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.hint-text {
+  font-size: .85rem;
+  color: #cbd5e1;
+  margin-bottom: .75rem;
+  line-height: 1.3;
+}
+
+#hint-dismiss {
+  font-size: .8rem;
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+}
+.hidden { display: none; }
+
 .habit-meta {
   display: flex;
   flex-direction: column;
