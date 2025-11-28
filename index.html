@@ -16,7 +16,7 @@
   <link rel="apple-touch-icon" href="icon-192.png" />
 
   <!-- Basic styling -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
 
   <!-- Google AdSense (replace client id with yours) -->
   <script
@@ -71,24 +71,19 @@
 
   <footer class="app-footer">
     <p>Install this app from your browser menu to use it like a native app.</p>
+    <p>
+      <a href="https://github.com/NDCSwift/daily-habits-pwa" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    </p>
   </footer>
 
   <script src="app.js"></script>
   <script>
-    // Register service worker for PWA
+    // Register service worker for PWA (use relative path so project pages work)
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        // For username.github.io
-        navigator.serviceWorker.register("/service-worker.js").catch((err) =>
-          console.error("SW registration failed", err)
-        );
-
-        /*
-         * If you are using a project page like:
-         *   https://username.github.io/my-pwa/
-         * change the line above to:
-         * navigator.serviceWorker.register("/my-pwa/service-worker.js")
-         */
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .catch((err) => console.error("SW registration failed", err));
       });
     }
   </script>
