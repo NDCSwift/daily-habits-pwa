@@ -14,32 +14,16 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-
-
 </head>
 
 <body>
   <header class="app-header">
     <h1>Daily Habits</h1>
-    <p>Track simple habits, anywhere, even offline.</p>
+    <p>Track simple habits, anywhere—even offline.</p>
 
     <!-- Dark mode toggle -->
     <button id="theme-toggle" class="theme-toggle">🌙</button>
   </header>
-
-   <!--
-<section class="ad-wrapper">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-9275564079466116"
-       data-ad-slot="8296786826"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</section>
--->
 
   <main class="app-main">
     <section class="card fade-in">
@@ -64,7 +48,20 @@
     </button>
   </footer>
 
-  <!-- Install Modal -->
+    <!-- Google AdSense -->
+<section class="ad-wrapper">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-9275564079466116"
+       data-ad-slot="8296786826"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</section>
+
+  <!-- Install instructions modal -->
   <div id="install-hint" class="install-hint hidden">
     <div class="hint-card">
       <h3>Install Daily Habits</h3>
@@ -73,11 +70,16 @@
     </div>
   </div>
 
+
+
+
   <script src="app.js"></script>
+
+  <!-- Service Worker -->
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./service-worker.js")
-        .catch(err => console.error("SW registration failed", err));
+        .catch(err => console.error("Service Worker registration failed:", err));
     }
   </script>
 </body>
