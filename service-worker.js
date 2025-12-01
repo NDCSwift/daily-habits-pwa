@@ -1,4 +1,4 @@
-const CACHE = "daily-habits-cache-v1";
+const CACHE = "daily-habits-cache-v2";
 const ASSETS = [
   "./",
   "./index.html",
