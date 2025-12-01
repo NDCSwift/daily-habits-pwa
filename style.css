@@ -13,7 +13,7 @@
 }
 
 /* DARK MODE */
-:root.dark {
+:root[data-theme="dark"] {
   --bg: #0f172a;
   --card: #1e293b;
   --text: #f1f5f9;
@@ -249,6 +249,7 @@ button:active {
   justify-content: center;
   align-items: center;
   z-index: 40;
+  backdrop-filter: blur(4px);
 }
 
 .hidden {
@@ -304,4 +305,17 @@ button:active {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Google Ad shrink + placement fix */
+.ad-wrapper {
+  max-height: 90px;
+  overflow: hidden;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.adsbygoogle {
+  width: 100% !important;
+  height: 90px !important;
 }
