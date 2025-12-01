@@ -155,44 +155,64 @@ habitForm.addEventListener("submit", (event) => {
 // --------------------
 // Install Hint Logic
 // --------------------
-(function () {
+// --------------------
+// Improved Install Hint Logic (Safari + macOS + iOS + Chrome)
+// --------------------
+window.addEventListener("load", () => {
   const hint = document.getElementById("install-hint");
   const hintText = document.getElementById("hint-text");
   const dismissBtn = document.getElementById("hint-dismiss");
+  const footerBtn = document.getElementById("open-install-hint");
 
   if (!hint || !hintText || !dismissBtn) return;
 
-  // Do not show twice
+  // Only show once
   if (localStorage.getItem("install-hint-dismissed")) return;
 
   const ua = navigator.userAgent.toLowerCase();
   const isIOS = /iphone|ipad|ipod/.test(ua);
-  const isMacSafari = /macintosh/.test(ua) && /safari/.test(ua) && !/chrome/.test(ua);
-  const isChrome = /chrome/.test(ua) && !/edge/.test(ua);
+  const isMacSafari =
+    /macintosh/.test(ua) &&
+    /safari/.test(ua) &&
+    !/chrome/.test(ua) &&
+    !/firefox/.test(ua);
+  const isChrome =
+    /chrome/.test(ua) && !/edge/.test(ua) && !/opera/.test(ua);
 
   const isStandalone =
     window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone;
+    navigator.standalone === true;
 
-  if (isStandalone) return; // already installed
+  if (!isStandalone) {
+    if (isIOS) {
+      hintText.textContent =
+        "On iPhone/iPad: tap the Share button → Add to Home Screen.";
+    } else if (isMacSafari) {
+      hintText.textContent =
+        "On macOS Safari: use the menu File → Add to Dock.";
+    } else if (isChrome) {
+      hintText.textContent =
+        "In Chrome: open the ⋮ menu → Install App.";
+    } else {
+      hintText.textContent =
+        "Look for an Install or Add to Home Screen option in your browser.";
+    }
 
-  if (isIOS) {
-    hintText.textContent = "Tap the Share button → Add to Home Screen.";
-  } else if (isMacSafari) {
-    hintText.textContent = "In Safari, go to File → Add to Dock to install this app.";
-  } else if (isChrome) {
-    hintText.textContent = "In Chrome, open the menu → Install App.";
-  } else {
-    hintText.textContent = "Look for the Install option in your browser.";
+    hint.classList.remove("hidden");
   }
-
-  hint.classList.remove("hidden");
 
   dismissBtn.addEventListener("click", () => {
     hint.classList.add("hidden");
     localStorage.setItem("install-hint-dismissed", "1");
   });
-})();
+
+  if (footerBtn) {
+    footerBtn.addEventListener("click", () => {
+      localStorage.removeItem("install-hint-dismissed");
+      hint.classList.remove("hidden");
+    });
+  }
+});
 
 // --------------------
 // FORCE RELOADS ON UPDATE
